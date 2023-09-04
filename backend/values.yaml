@@ -1,0 +1,8 @@
+backend:
+  namespace: internal-tools
+  enabled: true
+  image: 3a59n5l3my/backend:1.0.0
+  postgresqlUser: mydbuser
+  postgresqlPassword: mydbpassword
+  databaseHost: backend-db-release-service.internal-tools.svc.cluster.local
+  databaseName: mydbname

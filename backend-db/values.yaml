@@ -1,0 +1,5 @@
+postgresql:
+  enabled: true
+  postgresUser: mydbuser
+  postgresPassword: mydbpassword
+  postgresDatabase: mydbname
