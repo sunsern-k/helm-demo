@@ -1,0 +1,16 @@
+frontend:
+  namespace: internal-tools
+  replicaCount: 1
+  image: 3a59n5l3my/frontend:1.0.0
+  resources:
+    limits:
+      cpu: "2"
+      memory: "1Gi"
+    requests:
+      cpu: "1"
+      memory: "512Mi"
+  environment:
+    BACKEND_PATH: "backend-release-service.internal-tools.svc.cluster.local:3000"
+    HOST: blog.local
+  livenessProbePath: /healthz
+  readinessProbePath: /healthz
