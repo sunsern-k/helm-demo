@@ -6,9 +6,9 @@ It is designed to have 3 individual Helm charts as follow:
 
 - **backend-db:** This is the Postgres DB which uses the Postgresql official image: `postgres:latest`
 - **backend:** This is a Node application which is expected to connect the `backend-db` to the default port `5432` and expose the Web server port: `3000`
-- **frontend:** This is also a Node application which is expected to connect to the `backend` and while it is running the Web server port: `3000`, it exposes the Web server port: 8080
+- **frontend:** This is also a Node application which is expected to connect to the `backend` and while it is running the Web server port: `3000`, it exposes the Web server port: `8080`
 
-> NOTE: It is designed to have 3 individual Helm charts in order to follow the `separation of concerns` so that each Helm chart can be individually updated and installed; however, all are inter-connected where the `backend` depends on the `backend-db` and the `frontend` depends on the `backend`. For this reason, it is expected to be installed sequentially: `bankend-db`, `backend`, and `frontend`. While it is possible to set dependenciess and design in such the way that all are in the same package, it is a desing decision following `separation of concerns`.
+> NOTE: It is designed to have 3 individual Helm charts in order to follow the `separation of concerns` so that each Helm chart can be individually updated and installed; however, all are inter-connected where the `backend` depends on the `backend-db` and the `frontend` depends on the `backend`. For this reason, it is expected to be installed sequentially: `bankend-db`, `backend`, and `frontend`. While it is possible to set dependenciess and design in such the way that all are in the same package, it is a design decision following `separation of concerns`.
 
 ## Assumption
 1. This demo is developed and tested on the following setup:
@@ -23,13 +23,13 @@ Client Version: v1.28.1
 Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
 Server Version: v1.27.2
 ```
-2. To test the frontend Web server, it is verfied by the `port-forward` and browse the `http://localhost:8080` on the testing machine running the Kubernetes clusrter on Docker 
+2. To test the frontend Web server, it is verfied by the `port-forward` and browse the `http://localhost:8080` on the testing machine running the Kubernetes clusrter on Docker Desktop 
 3. All resources of this demo will be deployed into the `internal-tools` namespace. 
 
 ## Prerequisites
 The following requirements must be met and refer to the official documents to set up all of these prerequisites: 
 
-1. Docker Desktop has been install
+1. Docker Desktop has been installed
 2. Enable Kubernetes on the Docker Desktop 
 3. Required CLIs such as `helm` and `kubectl` have been installed. 
 
@@ -167,7 +167,16 @@ Forwarding from [::1]:8080 -> 3000
 
 ![Output example](/images/output.png)
 
+## Clean up? 
 
+To clean up all of resources from the `internal-tools` namespace, it can be archieved by running the `helm uninstall` as examples below:
 
+```
+helm --namespace internal-tools list --no-headers | awk '{print $1}' | while read r; do helm --n internal-tools uninstall $r; done 
+```
+
+Then verify that there is no any resource on the `internal-tools` namespace. 
+
+> kubectl -n internal-tools get all
 
 
