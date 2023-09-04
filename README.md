@@ -172,7 +172,7 @@ Forwarding from [::1]:8080 -> 3000
 To clean up all of resources from the `internal-tools` namespace, it can be archieved by running the `helm uninstall` as examples below:
 
 ```
-helm --namespace internal-tools list --no-headers | awk '{print $1}' | while read r; do helm --n internal-tools uninstall $r; done 
+helm --namespace internal-tools list --no-headers | awk '{print $1}' | while read r; do helm -n internal-tools uninstall $r; done 
 ```
 
 Then verify that there is no any resource on the `internal-tools` namespace. 
